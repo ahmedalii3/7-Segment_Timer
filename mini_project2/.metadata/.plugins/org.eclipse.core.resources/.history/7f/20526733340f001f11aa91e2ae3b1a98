@@ -1,0 +1,23 @@
+/*
+ * main.c
+ *
+ *  Created on: May 11, 2024
+ *      Author: DELL
+ */
+
+#include<avr/io.h>
+Timer_1_init(){
+	TCNT
+
+}
+int main(void){
+
+
+
+
+
+
+
+
+	return 0;
+}

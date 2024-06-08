@@ -1,0 +1,55 @@
+/*
+ * main.c
+ *
+ *  Created on: May 11, 2024
+ *      Author: DELL
+ */
+
+#include<avr/io.h>
+#include <avr/interrupt.h>
+#include<util/delay.h>
+char first_digit_second=0;
+char second_digit_second;
+char first_digit_minute;
+char second_digit_minute;
+char first_digit_hour;
+char second_digit_hour;
+ISR(TIMER1_COMPA_vect){
+//	PORTA &= (0x01);
+//	_delay_ms(100);
+	PORTC = (PORTC & 0xF0) | (first_digit_second & 0x0F);
+	first_digit_second++;
+}
+void Timer_1_init(void){
+	TCNT1   = 0;
+	OCR1A = 977;
+	TIMSK  |= (1<<OCIE1A);
+	TCCR1A |= (1<<FOC1A);
+	TCCR1B |= (1<<WGM12) | (1<<CS10) | (1<<CS12);
+
+
+}
+int main(void){
+	SREG |= (1<<7);
+
+	DDRC |= (0x0f);
+	DDRA |= 0x01;
+
+	PORTC &= 0xf0;
+	PORTA |= ( 1<<0);
+	Timer_1_init();
+	while(1){
+		PORTA |= (0x3f);
+#if 0
+		for(int i =0 ; i< 6 ;i++){
+			PORTA |= (1<<i);
+		}
+#endif
+
+	}
+
+
+
+
+	return 0;
+}
